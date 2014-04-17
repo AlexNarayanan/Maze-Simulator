@@ -1,6 +1,7 @@
 MazeGame
 
-Alex Narayanan and Rui Zheng
+Created by: Alex Narayanan and Rui Zheng
+
 ========
 
 Generate and auto-solve mazes!
