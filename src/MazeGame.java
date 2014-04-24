@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.util.*;
-import javalib.funworld.*;
+import javalib.appletworld.*;
 import javalib.colors.*;
 import javalib.worldimages.*;
 
@@ -17,8 +17,8 @@ import javalib.worldimages.*;
  * 
  */
 public class MazeGame extends World {
-    int width = 720;
-    int height = 720;
+    int width = 600;
+    int height = 600;
     Maze maze;
     DFS dfs;
     BFS bfs;
@@ -50,31 +50,27 @@ public class MazeGame extends World {
      * Main method that runs the program
      * ========================================================================
      */
-    public static void main(String[] argv) {
-        MazeGame mg = new MazeGame(new Maze(20));
-        mg.bigBang(mg.width, mg.height, .05);
-    }
+    /*public static void main(String[] argv) {
+    MazeGame mg = new MazeGame(new Maze(20));
+    // uncomment the next line to run the game
+    mg.bigBang(mg.width, mg.height, 0.05);
+}*/
 
     /**
-     * ON each clock tick, increment the currently selected search algorithm,
+     * On each clock tick, increment the currently selected search algorithm,
      * either DFS or BFS.
      * 
      * @return the updated world
      */
-    public World onTick() {
+    public void onTick() {
         if (this.runDFS) {
             this.maze.searchPath = this.dfs.search(this.maze.searchPath,
                     this.maze.size);
-            return this;
         } 
         else if (this.runBFS) {
             this.maze.searchPath = this.bfs.search(this.maze.searchPath,
                     this.maze.size);
-            return this;
         } 
-        else {
-            return this;
-        }
     }
 
     /**
@@ -85,23 +81,26 @@ public class MazeGame extends World {
      *            key that is pressed represented as a String
      * @return the updated world
      */
-    public World onKeyEvent(String ke) {
+    public void onKeyEvent(String ke) {
         // If the key "n" is pressed, create a new maze
         if (ke.equals("n")) {
-            return new MazeGame(new Maze(this.maze.size));
+            this.runBFS = false;
+            this.runDFS = false;
+            this.bfs.toDo.clear();
+            this.dfs.toDo.clear();
+            this.maze = new Maze(this.maze.size);
         }
         // If the key "down" is pressed, create a new smaller maze
         else if (ke.equals("down") && this.maze.size > 5) {
-            return new MazeGame(new Maze(this.maze.size - 5));
+            this.maze.size = this.maze.size - 5;
         }
         // If the key "up" is pressed, create a new larger maze
         else if (ke.equals("up") && this.maze.size < 35) {
-            return new MazeGame(new Maze(this.maze.size + 5));
+            this.maze.size = this.maze.size + 5;
         }
         // If the key " " is pressed, show the MST of the current maze
         else if (ke.equals(" ")) {
             this.showTree = !this.showTree;
-            return this;
         }
         // If the key "d" is pressed, run a new Depth First Search
         else if (ke.equals("d")) {
@@ -111,7 +110,6 @@ public class MazeGame extends World {
             this.maze.searchPath.add(new Posn(1, 1));
             this.dfs = new DFS(this.maze.mst);
             this.bfs.toDo.clear();
-            return this;
         }
         // If the key "b" is pressed, run a new Breadth First Search
         else if (ke.equals("b")) {
@@ -121,11 +119,6 @@ public class MazeGame extends World {
             this.maze.searchPath.add(new Posn(1, 1));
             this.bfs = new BFS(this.maze.mst);
             this.dfs.toDo.clear();
-            return this;
-        }
-        // else do nothing
-        else {
-            return this;
         }
     }
 
@@ -137,10 +130,13 @@ public class MazeGame extends World {
      */
     public WorldImage makeImage() {
         if (this.showTree) {
+            //return this.drawMaze();
             return this.drawPath(this.drawToDo(this.drawMST()));
         } 
         else {
+            //return background;
             return this.drawPath(this.drawToDo(this.drawMaze()));
+            //return this.drawMaze();
         }
     }
 
@@ -157,8 +153,9 @@ public class MazeGame extends World {
      */
 
     // The background image for the maze program
-    public WorldImage background = new RectangleImage(new Posn(400, 400),
-            this.width, this.height, new Color(100, 100, 100, 0));
+    public WorldImage background = new RectangleImage(
+            new Posn(this.width / 2, this.height / 2),
+            this.width, this.height, new White());
 
     /**
      * Iterate through the searchPath and draw it on top of the given Image
@@ -201,8 +198,8 @@ public class MazeGame extends World {
         WorldImage result = background;
         int cellWidth = this.width / this.maze.size;
         for (Posn p : this.maze.cells) {
-            result = new OverlayImages(new FrameImage(this.imagify(p),
-                    cellWidth, cellWidth, new Black()), result);
+            result = new OverlayImages(result, new FrameImage(this.imagify(p),
+                    cellWidth, cellWidth, new Black()));
         }
         return result;
     }
