@@ -1,31 +1,21 @@
-MazeGame
+Maze Generation and Search
 
-Created by: Alex Narayanan and Rui Zheng
+Authors: Alex Narayanan and Rui Zheng
 
 ========
 
-Generate and auto-solve mazes!
+Play with simulation here: http://alexnarayanan.github.io/MazeGame/
 
-Final Project for CS 2510 Fundamentals of Computer Science 2 at Northeastern University.
+Generate mazes with Kruskal's Algorithm, and auto-solve with depth first and breadth first search.
+
+Created for Final Project for CS 2510 Fundamentals of Computer Science 2 at Northeastern University.
 
 Uses tester and javalib libraries for testing and execution of a world program. 
 
 USER GUIDE
 
-The program can be run from either the main method in the MazeGame class
-or the examples class. UNCOMMENT THE LAST METHOD IN EXAMPLES TO RUN FROM
-EXAMPLES CLASS. In run configurations, select tester.main for the main
-class and select the examples class as the program argument to run from 
-the examples class, or select MazeGame for the main class to run from the 
-main method in the MazeGame class. 
-
-WHAT TO EXPECT:
--Mazes generated with Kruskal's Algorithm and Union Find Algorithm
--Ability to search through a randomly generated maze using one of two algorithms: breath-first or depth-first serach
--When starting a new search, cells colored light blue will be cells that have
-already been searched
--Cells colored darker blue will be cells that are on the to-do list of the
-current search
+Java Applet run from MazeGameApplet class.
+Java application can be run from either Examples clsas or MazeGame class, bigbangs have to be uncommented
 
 CONTROLS:
 space           show the minimal spanning tree of the current maze
