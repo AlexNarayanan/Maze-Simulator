@@ -2,11 +2,7 @@ import tester.*;
 
 import java.awt.Color;
 import java.util.*;
-
-import javalib.*;
-import javalib.funworld.*;
 import javalib.colors.*;
-import javalib.worldcanvas.*;
 import javalib.worldimages.*;
 
 /** 
@@ -272,7 +268,6 @@ class Examples {
      * @param t Tester
      */
     void testOnTick(Tester t) {
-        t.checkExpect(mw.onTick(), mw);
         mw.runDFS = true;
         mw.onTick();
         t.checkExpect(mw.maze.searchPath.size(), 2);
@@ -288,26 +283,21 @@ class Examples {
      */
     void testKeyEvent(Tester t) {
         mw = new MazeGame(maze10);
+        t.checkExpect(mw.runDFS, false);
         t.checkExpect(mw.runBFS, false);
-        t.checkExpect(mw.onKeyEvent("a"), mw);
-        t.checkExpect(mw.onKeyEvent(" "), mw);
-        t.checkFail(mw.onKeyEvent("n"), mw);
-        t.checkFail(mw.onKeyEvent("down"), mw);
-        mw.maze.size = 3;
-        t.checkExpect(mw.onKeyEvent("down"), mw);
-        mw.maze.size = 40;
-        t.checkExpect(mw.onKeyEvent("up"), mw);
-        mw.maze.size = 10;
-        t.checkFail(mw.onKeyEvent("up"), mw);
+        t.checkExpect(mw.showTree, false);
+        mw.onKeyEvent("a");
+        t.checkExpect(mw.maze.size, 10);
+        mw.onKeyEvent("down");
+        t.checkExpect(mw.maze.size, 5);
+        mw.onKeyEvent("up");
+        t.checkExpect(mw.maze.size, 10);
         mw.onKeyEvent("d");
         t.checkExpect(mw.runDFS, true);
-        t.checkExpect(mw.runBFS, false);
         mw.onKeyEvent("b");
-        t.checkExpect(mw.runDFS, false);
         t.checkExpect(mw.runBFS, true);
+        t.checkExpect(mw.runDFS, false);
         mw.onKeyEvent(" ");
-        t.checkExpect(mw.showTree, false);    
-        mw.onKeyEvent(" ");      
         t.checkExpect(mw.showTree, true);
     }
     
