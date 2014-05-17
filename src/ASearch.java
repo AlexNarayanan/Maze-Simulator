@@ -1,6 +1,5 @@
 import java.util.*;
-
-import javalib.worldimages.*;
+import java.awt.*;
 
 public abstract class ASearch {
     ArrayList<Edge> toDo;
@@ -23,12 +22,12 @@ public abstract class ASearch {
      *          for BFS, input true to turn toDo list into a queue
      * @return an updated search path 
      */
-    public ArrayList<Posn> abstractSearch(ArrayList<Posn> visited, 
+    public ArrayList<Point> abstractSearch(ArrayList<Point> visited, 
             int size, boolean frontOrBack) {
         // Get the most recently searched node in the visited list
-        Posn head = visited.get(visited.size() - 1);
+        Point head = visited.get(visited.size() - 1);
         // If we haven't reached end of graph, continue searching
-        if (!(this.posnEquals(head, new Posn(size, size)))) {
+        if (!(this.posnEquals(head, new Point(size, size)))) {
             // Add all edges that contain neighbors of the head to toDo
             this.addAllNeighbors(head);
             // Get the Edge at the either the front or back of toDo list
@@ -63,11 +62,11 @@ public abstract class ASearch {
     }
     
     /**
-     * Add all visitable neighbors of the given current Posn 
+     * Add all visitable neighbors of the given current Point 
      * from the tree to the toDo list
-     * @param current, the current posn being searched
+     * @param current, the current Point being searched
      */
-    public void addAllNeighbors(Posn current) {
+    public void addAllNeighbors(Point current) {
         for (Edge e : this.tree) {
             if (e.contains(current)) {
                 this.toDo.add(e);
@@ -76,13 +75,13 @@ public abstract class ASearch {
     }
 
     /**
-     * Check the two given Posns for equality
-     * Needed because the built in Posn equals method does not work
-     * @param p1 Posn1
-     * @param p2 Posn2
+     * Check the two given Points for equality
+     * Needed because the built in Point equals method does not work
+     * @param p1 Point1
+     * @param p2 Point2
      * @return true if p1 is the same as p2
      */
-    public boolean posnEquals(Posn p1, Posn p2) {
+    public boolean posnEquals(Point p1, Point p2) {
         return p1.x == p2.x &&
                 p1.y == p2.y;
     }

@@ -1,5 +1,5 @@
 import java.util.*;
-import javalib.worldimages.*;
+import java.awt.*;
 
 /**
  * 
@@ -11,12 +11,12 @@ import javalib.worldimages.*;
  * Algorithm and the Union/Find Algorithm to detect cycles. 
  * 
  */
-public class KruskalAlgorithm {
+public class MazeGenerator {
     
-    ArrayList<Posn> cells;
+    ArrayList<Point> cells;
     ArrayList<Edge> edges;
     ArrayList<Integer> nReps;
-    KruskalAlgorithm(ArrayList<Posn> cells, ArrayList<Edge> edges) {
+    MazeGenerator(ArrayList<Point> cells, ArrayList<Edge> edges) {
         this.cells = cells;
         this.edges = new ArrayList<Edge>(edges);
         this.nReps = this.buildnReps();
