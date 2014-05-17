@@ -1,9 +1,7 @@
-import tester.*;
-
-import java.awt.Color;
+import java.awt.*;
 import java.util.*;
-import javalib.colors.*;
-import javalib.worldimages.*;
+
+import tester.Tester;
 
 /** 
  * 
@@ -21,7 +19,7 @@ class Examples {
     Maze maze3 = new Maze(3);
     Maze maze8 = new Maze(8);
     Maze maze10 = new Maze(10);
-    MazeGame mw = new MazeGame(maze10);
+    MazeApplet mw = new MazeApplet();
     DFS dfs = new DFS(maze2.mst);
     BFS bfs = new BFS(maze2.mst);
     
@@ -29,10 +27,10 @@ class Examples {
      * @param t Tester*/
     void testCellGeneratoin(Tester t) {
         t.checkExpect(maze10.cells.size(), 100);       
-        t.checkExpect(maze10.cells.get(0), new Posn(1, 1));
-        t.checkExpect(maze10.cells.get(1), new Posn(2, 1));
-        t.checkExpect(maze10.cells.get(10), new Posn(1, 2));
-        t.checkExpect(maze10.cells.get(26), new Posn(7, 3));
+        t.checkExpect(maze10.cells.get(0), new Point(1, 1));
+        t.checkExpect(maze10.cells.get(1), new Point(2, 1));
+        t.checkExpect(maze10.cells.get(10), new Point(1, 2));
+        t.checkExpect(maze10.cells.get(26), new Point(7, 3));
         t.checkExpect(maze8.cells.size(), 64);
         t.checkExpect(maze8.edges.size(), 112);       
         t.checkExpect(maze10.edges.size(), 180);  
@@ -43,22 +41,22 @@ class Examples {
      */
     void testEdgeGeneration(Tester t) {
         t.checkExpect(maze10.edges.size(), 180);
-        t.checkExpect(maze10.edges.get(0).from, new Posn(1, 1));
-        t.checkExpect(maze10.edges.get(0).to, new Posn(1, 2));
-        t.checkExpect(maze10.edges.get(9).from, new Posn(10, 1));
-        t.checkExpect(maze10.edges.get(9).to, new Posn(10, 2));
-        t.checkExpect(maze10.edges.get(89).from, new Posn(10, 9));
-        t.checkExpect(maze10.edges.get(89).to, new Posn(10, 10));
-        t.checkExpect(maze10.edges.get(90).from, new Posn(1, 1));
-        t.checkExpect(maze10.edges.get(90).to, new Posn(2, 1));
-        t.checkExpect(maze10.edges.get(179).from, new Posn(9, 10));
-        t.checkExpect(maze10.edges.get(179).to, new Posn(10, 10));
-        t.checkExpect(maze8.edges.get(2).from, new Posn(3, 1));
-        t.checkExpect(maze8.edges.get(2).to, new Posn(3, 2));
-        t.checkExpect(maze8.edges.get(10).from, new Posn(3, 2));
-        t.checkExpect(maze8.edges.get(10).to, new Posn(3, 3));
-        t.checkExpect(maze8.edges.get(56).from, new Posn(1, 1));
-        t.checkExpect(maze8.edges.get(56).to, new Posn(2, 1));
+        t.checkExpect(maze10.edges.get(0).from, new Point(1, 1));
+        t.checkExpect(maze10.edges.get(0).to, new Point(1, 2));
+        t.checkExpect(maze10.edges.get(9).from, new Point(10, 1));
+        t.checkExpect(maze10.edges.get(9).to, new Point(10, 2));
+        t.checkExpect(maze10.edges.get(89).from, new Point(10, 9));
+        t.checkExpect(maze10.edges.get(89).to, new Point(10, 10));
+        t.checkExpect(maze10.edges.get(90).from, new Point(1, 1));
+        t.checkExpect(maze10.edges.get(90).to, new Point(2, 1));
+        t.checkExpect(maze10.edges.get(179).from, new Point(9, 10));
+        t.checkExpect(maze10.edges.get(179).to, new Point(10, 10));
+        t.checkExpect(maze8.edges.get(2).from, new Point(3, 1));
+        t.checkExpect(maze8.edges.get(2).to, new Point(3, 2));
+        t.checkExpect(maze8.edges.get(10).from, new Point(3, 2));
+        t.checkExpect(maze8.edges.get(10).to, new Point(3, 3));
+        t.checkExpect(maze8.edges.get(56).from, new Point(1, 1));
+        t.checkExpect(maze8.edges.get(56).to, new Point(2, 1));
     }
     
     /**
@@ -76,10 +74,10 @@ class Examples {
      * @param t Tester
      */
     void testContains(Tester t) {
-        Edge e1 = new Edge(new Posn(1, 1), new Posn(1, 2));
-        t.checkExpect(e1.contains(new Posn(1, 1)), true);
-        t.checkExpect(e1.contains(new Posn(1, 2)), true);
-        t.checkExpect(e1.contains(new Posn(1, 3)), false);
+        Edge e1 = new Edge(new Point(1, 1), new Point(1, 2));
+        t.checkExpect(e1.contains(new Point(1, 1)), true);
+        t.checkExpect(e1.contains(new Point(1, 2)), true);
+        t.checkExpect(e1.contains(new Point(1, 3)), false);
     }
     
     /**
@@ -87,11 +85,10 @@ class Examples {
      * @param t Tester
      */
     void testGetPosn(Tester t) {
-        Edge e1 = new Edge(new Posn(1, 1), new Posn(1, 2));
-        ArrayList<Posn> lst = new ArrayList<Posn>();
-        lst.add(new Posn(1, 1));
-        t.checkExpect(e1.getPosn(lst), new Posn(1, 2));
-        //t.checkExpect(e1.getPosn(lst), new Posn(1, 1));
+        Edge e1 = new Edge(new Point(1, 1), new Point(1, 2));
+        ArrayList<Point> lst = new ArrayList<Point>();
+        lst.add(new Point(1, 1));
+        t.checkExpect(e1.getPosn(lst), new Point(1, 2));
     }
     
     /**
@@ -99,8 +96,8 @@ class Examples {
      * @param t Tester
      */
     void testnRepGeneration(Tester t) {
-        KruskalAlgorithm ka1 = new KruskalAlgorithm(maze2.cells, maze2.edges);
-        KruskalAlgorithm ka2 = new KruskalAlgorithm(maze10.cells, maze10.edges);
+        MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
+        MazeGenerator ka2 = new MazeGenerator(maze10.cells, maze10.edges);
         t.checkExpect(ka1.nReps.size(), 4);
         t.checkExpect(ka2.nReps.size(), 100);
         t.checkExpect(ka1.findRep(0), 0);
@@ -113,7 +110,7 @@ class Examples {
      * @param t Tester
      */
     void testFindRepresentative(Tester t) {
-        KruskalAlgorithm ka1 = new KruskalAlgorithm(maze2.cells, maze2.edges);
+        MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
         ka1.nReps.set(0, 2);
         ka1.nReps.set(1, 0);
         t.checkExpect(ka1.findRep(0), 2);
@@ -126,8 +123,8 @@ class Examples {
      * @param t Tester
      */
     void testUnion(Tester t) {
-        KruskalAlgorithm ka1 = new KruskalAlgorithm(maze2.cells, maze2.edges);
-        KruskalAlgorithm ka2 = new KruskalAlgorithm(maze3.cells, maze3.edges);
+        MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
+        MazeGenerator ka2 = new MazeGenerator(maze3.cells, maze3.edges);
         ka1.union(0, 2);
         ka1.union(1,  0);
         ka1.union(1,  2);
@@ -150,10 +147,10 @@ class Examples {
      * @param t Tester
      */
     void testPosnEquals(Tester t) {
-        t.checkExpect(dfs.posnEquals(new Posn(1, 1), new Posn(1, 1)), true);
-        t.checkExpect(dfs.posnEquals(new Posn(1, 1), new Posn(1, 2)), false);
-        t.checkExpect(bfs.posnEquals(new Posn(1, 1), new Posn(1, 1)), true);
-        t.checkExpect(bfs.posnEquals(new Posn(1, 1), new Posn(1, 2)), false);
+        t.checkExpect(dfs.posnEquals(new Point(1, 1), new Point(1, 1)), true);
+        t.checkExpect(dfs.posnEquals(new Point(1, 1), new Point(1, 2)), false);
+        t.checkExpect(bfs.posnEquals(new Point(1, 1), new Point(1, 1)), true);
+        t.checkExpect(bfs.posnEquals(new Point(1, 1), new Point(1, 2)), false);
     }
     
     /**
@@ -161,21 +158,21 @@ class Examples {
      * @param t Tester
      */
     void testAddAllNeighbors(Tester t) {
-        Edge e1 = new Edge(new Posn(1, 1), new Posn(1, 2));
-        Edge e2 = new Edge(new Posn(2, 2), new Posn(2, 1));
-        Edge e3 = new Edge(new Posn(1, 1), new Posn(2, 1));
+        Edge e1 = new Edge(new Point(1, 1), new Point(1, 2));
+        Edge e2 = new Edge(new Point(2, 2), new Point(2, 1));
+        Edge e3 = new Edge(new Point(1, 1), new Point(2, 1));
         dfs.tree.clear();
         dfs.toDo.clear();
         dfs.tree.add(e1); 
         dfs.tree.add(e2); 
         dfs.tree.add(e3);
-        dfs.addAllNeighbors(new Posn(1, 1));
+        dfs.addAllNeighbors(new Point(1, 1));
         t.checkExpect(dfs.toDo.size(), 2);
         t.checkExpect(dfs.toDo.get(0), e1);
         t.checkExpect(dfs.toDo.get(1), e3);
         dfs.toDo.clear();
         dfs.tree.remove(e1);
-        dfs.addAllNeighbors(new Posn(2, 1));
+        dfs.addAllNeighbors(new Point(2, 1));
         t.checkExpect(dfs.toDo.size(), 2);
         t.checkExpect(dfs.toDo.get(0), e2);
         t.checkExpect(dfs.toDo.get(1), e3);
@@ -187,12 +184,12 @@ class Examples {
      * Test the getIndex method in the class ASearch
      */
     void testGetIndex(Tester t) {
-        dfs.addAllNeighbors(new Posn(1, 1));
+        dfs.addAllNeighbors(new Point(1, 1));
         t.checkExpect(dfs.getIndex(true), 0);
-        t.checkExpect(dfs.getIndex(true), dfs.toDo.size() - 1);
-        bfs.addAllNeighbors(new Posn(1, 1));
+        //t.checkExpect(dfs.getIndex(true), dfs.toDo.size() - 1);
+        bfs.addAllNeighbors(new Point(1, 1));
         t.checkExpect(bfs.getIndex(true), 0);
-        t.checkExpect(bfs.getIndex(true), dfs.toDo.size() - 1);
+        //t.checkExpect(bfs.getIndex(true), dfs.toDo.size() - 1);
     }
     
     /**
@@ -201,15 +198,15 @@ class Examples {
      */
     void testDFS(Tester t) {      
         dfs.toDo.clear();
-        Edge e1 = new Edge(new Posn(1, 2), new Posn(1, 1));
-        Edge e2 = new Edge(new Posn(2, 1), new Posn(2, 2));
-        Edge e3 = new Edge(new Posn(1, 1), new Posn(2, 1));
-        Edge e4 = new Edge(new Posn(2, 1), new Posn(1, 2));
-        Edge e5 = new Edge(new Posn(1, 2), new Posn(2, 2));
+        Edge e1 = new Edge(new Point(1, 2), new Point(1, 1));
+        Edge e2 = new Edge(new Point(2, 1), new Point(2, 2));
+        Edge e3 = new Edge(new Point(1, 1), new Point(2, 1));
+        Edge e4 = new Edge(new Point(2, 1), new Point(1, 2));
+        Edge e5 = new Edge(new Point(1, 2), new Point(2, 2));
         ArrayList<Edge> tree = 
                 new ArrayList<Edge>(Arrays.asList(e1, e2, e3, e4, e5));
-        ArrayList<Posn> visited = new ArrayList<Posn>();
-        visited.add(new Posn(1, 1));
+        ArrayList<Point> visited = new ArrayList<Point>();
+        visited.add(new Point(1, 1));
         dfs.tree = tree;
         t.checkExpect(visited.size(), 1);
         
@@ -235,15 +232,15 @@ class Examples {
      */
     void testBFS(Tester t) {      
         bfs.toDo.clear();
-        Edge e1 = new Edge(new Posn(1, 2), new Posn(1, 1));
-        Edge e2 = new Edge(new Posn(2, 1), new Posn(2, 2));
-        Edge e3 = new Edge(new Posn(1, 1), new Posn(2, 1));
-        Edge e4 = new Edge(new Posn(2, 1), new Posn(1, 2));
-        Edge e5 = new Edge(new Posn(1, 2), new Posn(2, 2));
+        Edge e1 = new Edge(new Point(1, 2), new Point(1, 1));
+        Edge e2 = new Edge(new Point(2, 1), new Point(2, 2));
+        Edge e3 = new Edge(new Point(1, 1), new Point(2, 1));
+        Edge e4 = new Edge(new Point(2, 1), new Point(1, 2));
+        Edge e5 = new Edge(new Point(1, 2), new Point(2, 2));
         ArrayList<Edge> tree = 
                 new ArrayList<Edge>(Arrays.asList(e1, e2, e3, e4, e5));
-        ArrayList<Posn> visited = new ArrayList<Posn>();
-        visited.add(new Posn(1, 1));
+        ArrayList<Point> visited = new ArrayList<Point>();
+        visited.add(new Point(1, 1));
         bfs.tree = tree;
         t.checkExpect(visited.size(), 1);
         
@@ -262,95 +259,40 @@ class Examples {
         t.checkExpect(visited.size(), 4);
         t.checkExpect(bfs.toDo.size(), 3);
     }
-    
-    /** 
-     * Test the onTick method in the MazeGame class
-     * @param t Tester
-     */
-    void testOnTick(Tester t) {
-        mw.runDFS = true;
-        mw.onTick();
-        t.checkExpect(mw.maze.searchPath.size(), 2);
-        mw.runDFS = false;
-        mw.runBFS = true;
-        mw.onTick();
-        t.checkExpect(mw.maze.searchPath.size(), 3);
-    }
-    
-    /**
-     * Test the keyEvent handler in the MazeGame class
-     * @param t Tester
-     */
-    void testKeyEvent(Tester t) {
-        mw = new MazeGame(maze10);
-        t.checkExpect(mw.runDFS, false);
-        t.checkExpect(mw.runBFS, false);
-        t.checkExpect(mw.showTree, false);
-        mw.onKeyEvent("a");
-        t.checkExpect(mw.maze.size, 10);
-        mw.onKeyEvent("down");
-        t.checkExpect(mw.maze.size, 5);
-        mw.onKeyEvent("up");
-        t.checkExpect(mw.maze.size, 10);
-        mw.onKeyEvent("d");
-        t.checkExpect(mw.runDFS, true);
-        mw.onKeyEvent("b");
-        t.checkExpect(mw.runBFS, true);
-        t.checkExpect(mw.runDFS, false);
-        mw.onKeyEvent(" ");
-        t.checkExpect(mw.showTree, true);
-    }
-    
-    /**
-     * Test various draw methods in the MazeGame class
-     * @param t Tester
-     */
-    void testDraw(Tester t) {
-        MazeGame mw1 = new MazeGame(maze1);
-        WorldImage bg = 
-                new RectangleImage(new Posn(400, 400), 
-                        720, 720, new Color(100, 100, 100, 0));
-        
-        t.checkExpect(mw1.drawMaze(), new OverlayImages(
-                new FrameImage(new Posn(360, 360), 
-                        720, 720, new Black()), bg));
-        
-        t.checkExpect(mw1.drawGrid(), new OverlayImages(
-                new FrameImage(new Posn(360, 360), 
-                        720, 720, new Black()), bg));
-        
-        t.checkExpect(mw1.drawMaze(), mw1.drawMaze());        
-        t.checkExpect(mw1.drawMST(), mw1.drawMST());        
-        t.checkExpect(mw1.drawPath(bg), mw1.drawPath(bg));        
-        t.checkExpect(mw1.drawToDo(bg), bg);        
-        t.checkExpect(mw1.makeImage(), mw1.makeImage());    
-        mw1.showTree = true;
-        t.checkExpect(mw1.makeImage(), mw1.makeImage());
-    }
          
     /**
-     * Test the method imagify in the MazeGame class
+     * Test the method imagify in the MazeApplet class
      * @param t Tester
      */   
     void testImagify(Tester t) {       
-        t.checkExpect(mw.imagify(new Posn(1, 1)), new Posn(36, 36));
-        
+        t.checkExpect(mw.imagify(new Point(1, 1)), new Point(0, 0));
+        t.checkExpect(mw.imagify(new Point(2, 2)), new Point(30, 30));       
     }
     
     /**
-     * Test the method getToDo in the MazeGame class
-     * @param t Teser    
+     * Test the method getToDo in the MazeApplet class
+     * @param t Tester   
      */
-    void testGetToDo(Tester t) {
+    /*void testGetToDo(Tester t) {
         mw.runDFS = true;
-        mw.runBFS = false;       
-        t.checkExpect(mw.getToDo(), mw.dfs.toDo);      
-    }
+        mw.runBFS = false;
+        t.checkExpect(mw.getToDo(), mw.dfs.toDo);
+    }*/
     
- /**
-  * Test the functionality of the game by running bigBang
-  * (no real other tests are possible)
-  */
+    /**
+     * Test the method drawMazeHelper in the MazeApplet class
+     */
+    void testDrawMazeHelper(Tester t) {
+        t.checkExpect(mw.drawMazeHelper(new Point(1, 1),  new Point(2, 1)),
+                new Point(16, 1));
+        t.checkExpect(mw.drawMazeHelper(new Point(1, 1),  new Point(1, 2)),
+                new Point(1, 16));
+    }
+
+    /**
+     * Test the functionality of the game by running bigBang (no real other
+     * tests are possible)
+     */
     void testGame(Tester t) {
         // UNCOMMENT TO RUN THE GAME
         // MazeGame mg1 = new MazeGame(new Maze(20));

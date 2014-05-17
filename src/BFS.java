@@ -1,6 +1,5 @@
 import java.util.*;
-
-import javalib.worldimages.*;
+import java.awt.*;
 
 /**
  * 
@@ -23,7 +22,7 @@ public class BFS extends ASearch {
      * @param size, the size of the list.
      * @return an updated search path
      */
-    public ArrayList<Posn> search(ArrayList<Posn> visited, int size) {
+    public ArrayList<Point> search(ArrayList<Point> visited, int size) {
         return this.abstractSearch(visited, size, true);
     }
 }
