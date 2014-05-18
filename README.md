@@ -4,7 +4,7 @@ Authors: Alex Narayanan and Rui Zheng
 
 ========
 
-Play with simulation here: http://alexnarayanan.github.io/MazeGame/
+Visit the webpage and try the applet out here: http://alexnarayanan.github.io/Maze-Simulator/
 
 Generate mazes with Kruskal's Algorithm, and auto-solve with depth first and breadth first search.
 
