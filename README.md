@@ -1,16 +1,12 @@
 Maze Generation and Search
 
-Authors: Alex Narayanan and Rui Zheng
+Authors: Alex Narayanan
 
 ========
 
 Visit the webpage and try the applet out here: http://alexnarayanan.github.io/Maze-Simulator/
 
 Generate mazes with Kruskal's Algorithm, and auto-solve with depth first and breadth first search.
-
-Created for Final Project for CS 2510 Fundamentals of Computer Science 2 at Northeastern University.
-
-Uses tester and javalib libraries for testing and execution of a world program. 
 
 USER GUIDE
 
@@ -22,6 +18,4 @@ space           show the minimal spanning tree of the current maze
 d               start a new depth-first search
 b               start a new breadth-first search
 n               create a new maze of the same size
-up              create a new maze of bigger size (up to a cap of size 35)
-down            create a new maze of smaller size (up to a cap of size 5)
 
