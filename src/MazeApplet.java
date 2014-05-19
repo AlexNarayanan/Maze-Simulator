@@ -92,7 +92,6 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
         if (code == KeyEvent.VK_N) {
             this.runBFS = false;
             this.runDFS = false;
-            this.search.toDo.clear();
             this.maze = new Maze(this.maze.size);
         // If b key is pressed run a new breadth-first search
         } else if (code == KeyEvent.VK_B) {
