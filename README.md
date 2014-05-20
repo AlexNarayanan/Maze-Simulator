@@ -10,8 +10,7 @@ Generate mazes with Kruskal's Algorithm, and auto-solve with depth first and bre
 
 USER GUIDE
 
-Java Applet run from MazeGameApplet class.
-Java application can be run from either Examples clsas or MazeGame class, bigbangs have to be uncommented
+Main class MazeGameApplet
 
 CONTROLS:
 space           show the minimal spanning tree of the current maze
