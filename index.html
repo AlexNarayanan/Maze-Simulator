@@ -2,23 +2,45 @@
 
 <html>
     <head>
-        <title>
-            Maze Simulation
-        </title>
+        <title>Maze Simulator</title>
+        <meta name='keywords' content="Maze Simulator, Kruskal's Algorithm, Search" />
+        <meta name="description" content="Generate and auto-solve mazes."/>
+        <link href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABO7gAAW6oAAFAqAABe6gAAQooAAF76AABQAgAAV/4AAFQAAAB3/gAAAAIAAH+6AABAqgAAfu4AAAAAAAA=" rel="icon" type="image/x-icon" />
     </head>
 
-    <body>
-        <h2> Maze Simulator Applet </h2>
+    <body background='applet/bg.png'>
+        <center>
+            <!-- Github ribbon -->
+            <a href="https://github.com/AlexNarayanan/Maze-Simulator" target="_blank">
+                <img style="position: absolute; top: 0; right: 0; border: 0;" 
+                     src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" 
+                     data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 
-        <embed id="testapplet"
-               type="application/x-java-applet"
-               width="600" height="600" 
-               code="MazeApplet.class"
-               codebase="applet/"/>
 
-        <p>Add here any other content... </p>
-        <hr></hr>
-        <hr></hr>
-
-    </body>
+            <h2> Maze Simulator</h2>
+            <h3>Generate and auto-solve mazes.</h3>
+            <p>This applet generates random mazes using Kruskal's Algorithm to find a minimal spanning tree 
+                <br>of the grid of squares. You can automatically search through the maze with either 
+                <br>breadth-first or depth-first searching algorithms.</p>
+            <embed id='applet'
+                   type="application/x-java-applet"
+                   width="600" height="600" align='middle'
+                   code="MazeApplet.class"
+                   codebase="applet/"/>
+            <h2>You're in Control</h2>
+            <ul>
+                <li>n- generate new maze</li>
+                <li>b - start new breath-first search</li>
+                <li>d - start new depth-first search</li>
+                <li>space - show/hide minimal spanning tree</li>
+            </ul>
+            <hr>
+            <p>
+                Created by Alex Narayanan. 
+                Designed with love in Java. View source on <a href="https://github.com/AlexNarayanan/Maze-Simulator" target="_blank">Github.</a>
+            </p>
+        </center>
+</body>
 </html>

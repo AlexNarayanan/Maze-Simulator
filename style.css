@@ -1,0 +1,39 @@
+/* 
+    Created on : May 18, 2014
+    Author     : Alex Narayanan
+*/
+
+/* General formatting */
+body {
+    font-family: 'Cabin', sans-serif;
+    color: #121212;
+}
+
+ul {
+    list-style-type: none;
+    width: 600px;
+    font-size: 1.09em;
+}
+
+p {
+    font-size: 1.09em;
+}
+
+hr {
+    width: 600px;
+}
+
+a {
+    text-decoration: none;
+    color: #390160;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+#applet {
+    margin: auto;
+    padding: auto;
+}
+
