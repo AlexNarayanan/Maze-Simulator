@@ -13,8 +13,12 @@ USER GUIDE
 Main class MazeApplet
 
 CONTROLS:
+
 space           show the minimal spanning tree of the current maze
+
 d               start a new depth-first search
+
 b               start a new breadth-first search
+
 n               create a new maze of the same size
 
