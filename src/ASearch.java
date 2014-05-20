@@ -1,6 +1,11 @@
 import java.util.*;
 import java.awt.*;
 
+/**
+ * Class that represents a generic abstract search algorithm
+ * @author Alex Narayanan
+ * @since 5/4/14
+ */
 public abstract class ASearch {
     ArrayList<Edge> toDo;
     ArrayList<Edge> tree;
