@@ -4,7 +4,6 @@ import java.awt.*;
 /**
  * 
  * @author Alex Narayanan
- * @author Rui Zheng
  * @since 4/7/14
  * To represent a depth first search on a minimal spanning tree, 
  * represented as an ArrayList of Edges
