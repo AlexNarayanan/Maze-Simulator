@@ -6,7 +6,6 @@ import tester.Tester;
 /** 
  * 
  * @author Alex Narayanan
- * @author Rui Zheng
  * @since 4/4/2014
  *
  * Examples and Tests for the various data structures
