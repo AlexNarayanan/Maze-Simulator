@@ -10,7 +10,7 @@ Generate mazes with Kruskal's Algorithm, and auto-solve with depth first and bre
 
 USER GUIDE
 
-Main class MazeGameApplet
+Main class MazeApplet
 
 CONTROLS:
 space           show the minimal spanning tree of the current maze
