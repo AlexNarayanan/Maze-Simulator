@@ -4,7 +4,6 @@ import java.awt.*;
 /**
  * 
  * @author Alex Narayanan
- * @author Rui Zheng
  * @since 4/2/2014
  * 
  * To represent a Maze. A maze contains all the cells within it, all 
