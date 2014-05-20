@@ -4,7 +4,6 @@ import java.awt.*;
 /**
  * 
  * @author Alex Narayanan
- * @author Rui Zheng
  * @since 4/6/14
  *
  * To generate a minimal spanning of a graph of cells using Kruskal's
