@@ -25,10 +25,8 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
     private ASearch search;
     /** Whether the MST is visible */
     private boolean showTree = false;
-    /** Whether to run depth first search */
-    private boolean runDFS = false;
-    /** Whether to run breath first search */
-    private boolean runBFS = false;
+    /** State of the search: 0 for nothing, 1 for BFS, 2 for DFS */
+    private int searchState = 0;
     /** The width of a cell in the applet */
     private int cellWidth = this.width / this.maze.size;
     /** The back buffer */
@@ -66,19 +64,19 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
     /** run the Thread */
     public void run() {
         while (keepGoing) {
-            if (this.runDFS) {
+            if (this.searchState == 2) {
                 DFS dfs = (DFS) this.search;
                 this.maze.searchPath = dfs.search(this.maze.searchPath,
                         this.maze.size);
             } 
-            else if (this.runBFS) {
+            else if (this.searchState == 1) {
                 BFS bfs = (BFS) this.search;
                 this.maze.searchPath = bfs.search(this.maze.searchPath,
                         this.maze.size);
             }
             repaint();
             try {
-                Thread.sleep(40);
+                Thread.sleep(30);
             } 
             catch (InterruptedException ie) {                
             }
@@ -90,23 +88,31 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
         int code = e.getKeyCode();
         // If n key is pressed generate new maze and start from scratch
         if (code == KeyEvent.VK_N) {
-            this.runBFS = false;
-            this.runDFS = false;
+            this.searchState = 0;
             this.maze = new Maze(this.maze.size);
+        // If up is pressed make a new larger maze
+        } else if (code == KeyEvent.VK_UP) {
+            this.searchState = 0;
+            this.maze = new Maze(this.maze.size + 10);
+            this.cellWidth = this.width / this.maze.size;
+        // If down is pressed make a smaller maze
+        } else if (code == KeyEvent.VK_DOWN) {
+            this.searchState = 0;
+            this.maze = new Maze(this.maze.size - 10);
+            this.cellWidth = this.width / this.maze.size;
         // If b key is pressed run a new breadth-first search
         } else if (code == KeyEvent.VK_B) {
-            this.runDFS = false;
-            this.runBFS = true;
+            this.searchState = 1;
             this.maze.searchPath.clear();
             this.maze.searchPath.add(new Point(1, 1));
             this.search = new BFS(this.maze.mst);
         // If d key is pressed run a new depth-first search
         } else if (code == KeyEvent.VK_D) {
-            this.runDFS = true;
-            this.runBFS = false;
+            this.searchState = 2;
             this.maze.searchPath.clear();
             this.maze.searchPath.add(new Point(1, 1));
             this.search = new DFS(this.maze.mst);
+        // If space is pressed show the spannig tree
         } else if (code == KeyEvent.VK_SPACE) {
             this.showTree = !this.showTree;
         }
@@ -139,6 +145,7 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
         this.drawMaze(bufferGraphics);
         this.drawTree(bufferGraphics);
         this.drawPath(bufferGraphics);
+        this.drawStartAndEnd(bufferGraphics);
         bufferGraphics.setColor(Color.black);
         bufferGraphics.drawRect(0, 0, this.width - 1, this.height - 1);
         g.drawImage(buffer, 0, 0, this);
@@ -174,6 +181,16 @@ public class MazeApplet extends Applet implements Runnable, KeyListener {
             p = this.imagify(p);
             g.fillRect(p.x, p.y, this.cellWidth, this.cellWidth);
         }
+    }
+    
+    /** Fill in the start and end rectangles */
+    public void drawStartAndEnd(Graphics g) {
+        g.setColor(new Color(0, 204, 102, 255));
+        Point p = this.imagify(new Point(1, 1));
+        g.fillRect(p.x, p.y, this.cellWidth, this.cellWidth);
+        g.setColor(new Color(137, 62, 137, 255));
+        p = this.imagify(this.maze.cells.get(this.maze.cells.size() - 1));
+        g.fillRect(p.x, p.y, this.cellWidth, this.cellWidth);       
     }
     
     /** Draw the minimal spanning tree **/

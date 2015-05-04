@@ -90,55 +90,20 @@ class Examples {
         t.checkExpect(e1.getPosn(lst), new Point(1, 2));
     }
     
-    /**
-     * Test the nRep generation in the class for the Kruskal Algorithm class
+    /** Test the method findPArent in the MazeGenerator class
      * @param t Tester
      */
-    void testnRepGeneration(Tester t) {
+    void testfindParent(Tester t) {
         MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
-        MazeGenerator ka2 = new MazeGenerator(maze10.cells, maze10.edges);
-        t.checkExpect(ka1.nReps.size(), 4);
-        t.checkExpect(ka2.nReps.size(), 100);
-        t.checkExpect(ka1.findRep(0), 0);
-        t.checkExpect(ka2.findRep(70), 70);
-        t.checkExpect(ka2.findRep(99), 99);
-    }
-    
-    /**
-     * Test the method findRepresentative in the Kruskal Algorithm class
-     * @param t Tester
-     */
-    void testFindRepresentative(Tester t) {
-        MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
-        ka1.nReps.set(0, 2);
-        ka1.nReps.set(1, 0);
-        t.checkExpect(ka1.findRep(0), 2);
-        t.checkExpect(ka1.findRep(1), 2);
-        t.checkExpect(ka1.findRep(3), 3);
-    }
-    
-    /**
-     * Test the method union in the Kruskal Algorithm class
-     * @param t Tester
-     */
-    void testUnion(Tester t) {
-        MazeGenerator ka1 = new MazeGenerator(maze2.cells, maze2.edges);
-        MazeGenerator ka2 = new MazeGenerator(maze3.cells, maze3.edges);
-        ka1.union(0, 2);
-        ka1.union(1,  0);
-        ka1.union(1,  2);
-        ka2.union(4, 5);
-        ka2.union(0, 3);
-        ka2.union(0, 1);
-        ka2.union(6, 7);
-        ka2.union(3, 6);
-        t.checkExpect(ka1.findRep(0), 2);
-        t.checkExpect(ka1.findRep(1), 2);
-        t.checkExpect(ka1.findRep(3), 3);
-        t.checkExpect(ka2.findRep(0), 7);
-        t.checkExpect(ka2.findRep(3), 7);
-        t.checkExpect(ka2.findRep(1), 7);
-        t.checkExpect(ka2.findRep(4), 5);
+        Point p1 = maze2.cells.get(1);
+        Point p2 = maze2.cells.get(2);
+        Point p3 = maze2.cells.get(3);
+        ka1.unionMap.replace(p2, p1);
+        t.checkExpect(ka1.findGrandparent(p2), p1);
+        ka1.unionMap.replace(p1, p3);
+        t.checkExpect(ka1.findGrandparent(p2), p3);
+        t.checkExpect(ka1.findGrandparent(p1), p3);
+
     }
     
     /**
@@ -288,13 +253,4 @@ class Examples {
                 new Point(1, 16));
     }
 
-    /**
-     * Test the functionality of the game by running bigBang (no real other
-     * tests are possible)
-     */
-    void testGame(Tester t) {
-        // UNCOMMENT TO RUN THE GAME
-        // MazeGame mg1 = new MazeGame(new Maze(20));
-        // mg1.bigBang(720, 720, .05);
-    }
 }

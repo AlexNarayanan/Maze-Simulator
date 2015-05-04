@@ -18,7 +18,13 @@ public class Maze {
     ArrayList<Point> searchPath = new ArrayList<Point>();
     ArrayList<Edge> mst;
     Maze(int size) {
-        this.size = size;
+        if (size > 60) {
+            this.size = 60;
+        } else if (size < 10) {
+            this.size = 10;
+        } else {
+            this.size = size;
+        }
         this.generateCells(); 
         this.generateEdges();
         this.generateMaze();

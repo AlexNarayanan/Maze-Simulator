@@ -15,10 +15,15 @@ public class MazeGenerator {
     ArrayList<Point> cells;
     ArrayList<Edge> edges;
     ArrayList<Integer> nReps;
+    HashMap<Point, Point> unionMap;
     MazeGenerator(ArrayList<Point> cells, ArrayList<Edge> edges) {
         this.cells = cells;
         this.edges = new ArrayList<Edge>(edges);
-        this.nReps = this.buildnReps();
+        this.unionMap = new HashMap<Point, Point>();
+        // Initialize the mapping
+        for (Point p : this.cells) {
+            unionMap.put(p, p);
+        }
     }
     
     /**
@@ -27,68 +32,55 @@ public class MazeGenerator {
      * @return a minimal spanning tree of the maze grid
      */
     public ArrayList<Edge> kruskalAlg() {
-
+        // Declare minimum spanning tree
         ArrayList<Edge> mst = new ArrayList<Edge>();
-        
+        Random rand = new Random();
+        // Keep going until MST is full
         while (mst.size() < this.cells.size() - 1) {
-            
-            //Select a random edge from the list of edges
-            Random rand = new Random();
-            Edge randEdge = this.edges.get(rand.nextInt(this.edges.size()));
-
-            // Get the indexes of the random edge
-            int indexFrom = this.cells.indexOf(randEdge.from);
-            int indexTo = this.cells.indexOf(randEdge.to);
-
-            // If the representative of indexFrom and indexTo are
-            // not equal, union them and add the edge to the spanning tree
-            if (this.findRep(indexFrom) != this.findRep(indexTo)) {
-                this.union(indexFrom, indexTo);
+            //grab a random edge
+            Edge randEdge = this.edges.remove(rand.nextInt(this.edges.size()));
+            //If the parents are different, update the unionMap and add to mst
+            Point p1 = randEdge.from;
+            Point p2 = randEdge.to;
+            Point grandparent1 = findGrandparent(p1);
+            if (!grandparent1.equals(findGrandparent(p2))) {
+                replaceAllParents(p2, grandparent1);
                 mst.add(randEdge);
             }
-
-            // Remove the added edge so it doesn't get picked again
-            this.edges.remove(randEdge);
-        }
+        }        
         return mst;
     }
     
-    /** 
-     * Build an ArrayList that says which subset any given cell
-     * is a representative of. Every cell starts off referring to itself. 
-     * @return an ArrayList list of nReps
+    /**
+     * Finds the grandparent of the chain starting at the given point
+     * @param p The point we want to find the grandparent for
+     * @return the grandParent connection of the given point
      */
-    public ArrayList<Integer> buildnReps() {
-        ArrayList<Integer> nReps = new ArrayList<Integer>();
-        while (nReps.size() <= this.cells.size() - 1) {
-            nReps.add(nReps.size());
+    public Point findGrandparent(Point p) {
+        Point currentPoint = unionMap.get(p);
+        Point currentParent = unionMap.get(currentPoint);
+        while (!currentPoint.equals(currentParent)) {
+            currentPoint = currentParent;
+            currentParent = unionMap.get(currentPoint);
         }
-        return nReps;
+        
+        return currentParent;
     }
     
     /**
-     * Produces the representative of the given cell with index n
-     * @param n, the index of the cell we want to find an nRep for
-     * @return the index of the parent representative of the subset of n
+     * Replaces all parents in the chain of connected points to the new parent
+     * @param p starting point in the chain
+     * @param newParent replaces all parents in the chain with this Point
      */
-    public int findRep(int n) {
-        if (this.nReps.get(n) == n) {
-            return n;
+    public void replaceAllParents(Point p, Point newParent) {
+        Point currentPoint = p;
+        Point grandParent = findGrandparent(p);
+        Point currentParent = unionMap.get(currentPoint); 
+        while(!currentPoint.equals(grandParent)) {
+            this.unionMap.replace(currentPoint, newParent);
+            currentPoint = currentParent;
+            currentParent = unionMap.get(currentPoint);
         }
-        else {
-            return this.findRep(this.nReps.get(n));
-        }
-    }
-    
-    /** 
-     * Finds the representatives of the cells with indexes n1 and n2.
-     * If they are the same, connecting them will result in a cycle.
-     * If they are not the same, set the value of the n1Rep to n2.\
-     * @param n1, the index of the first cell
-     * @param n2, the index of the second cell
-     */   
-    public void union(int n1, int n2) {
-        int n1Rep = this.findRep(n1);
-        this.nReps.set(n1Rep, n2);
+        this.unionMap.replace(currentPoint, newParent);
     }
 }
